@@ -5,7 +5,7 @@ const db = require(path.join(process.cwd(), 'src', 'db', 'index'));
 
 const NL = String.fromCharCode(10);
 const SL = String.fromCharCode(47);
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 function getActive() {
   return db.prepare('SELECT id, email, unsubscribe_token FROM subscribers WHERE unsubscribed_at IS NULL').all();
@@ -42,6 +42,10 @@ async function sendGameweekEmail(gameweek, payload) {
   const fromEmail = process.env.FROM_EMAIL || 'noreply@resend.dev';
   let sent = 0;
   let lastErr = null;
+  if (!resend) {
+    db.prepare('UPDATE email_log SET status = ?, error = ?, sent_at = ? WHERE id = ?').run('error', 'RESEND_API_KEY not configured', new Date().toISOString(), logId);
+    return { sent: 0, total: subs.length, error: 'RESEND_API_KEY not configured' };
+  }
   for (const sub of subs) {
     const body = buildBody(gameweek, payload, reminders, appUrl, sub.unsubscribe_token);
     try {
