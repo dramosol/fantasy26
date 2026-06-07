@@ -1,0 +1,37 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">&#128203; Cargar Tabla</h1>
+  <div class="prompt-box">
+    <h3>Paso 1: Copia este prompt y usalo en tu LLM con la captura de pantalla</h3>
+    <pre class="prompt-text" id="llmPrompt">Eres un extractor de datos. Recibirás una captura de la tabla de posiciones de FIFA Fantasy. Devuelve ÚNICAMENTE un JSON válido (sin texto extra) con este esquema: {"dataset":"standings","captured_at":"YYYY-MM-DD","columns":[{"key":"rank","label":"#","type":"number"},{"key":"manager","label":"Manager","type":"string"},{"key":"team_name","label":"Equipo","type":"string"},{"key":"gw_points","label":"Pts. Jornada","type":"number"},{"key":"total_points","label":"Pts. Total","type":"number"}],"rows":[{"rank":1,"manager":"...","team_name":"...","gw_points":78,"total_points":942}]}. Reglas: solo columnas visibles, números como number, no inventes datos, JSON puro.</pre>
+    <button class="btn" onclick="copyPrompt()">&#128203; Copiar prompt</button>
+  </div>
+  <% if (error) { %><div class="error-msg"><%= error %></div><% } %>
+  <form method="POST" action="/admin/paste" class="paste-form">
+    <label class="form-label">Paso 2: Pega el JSON aqui</label>
+    <textarea class="json-input" name="raw_json" rows="12" placeholder="{...}" required></textarea>
+    <label class="form-label">Modo</label>
+    <select name="mode" class="form-select" id="modeSelect">
+      <option value="update">Actualizacion en curso (sin correo)</option>
+      <option value="close">Cierre de jornada (guarda historico + envia correo)</option>
+    </select>
+    <div id="gwRow" style="display:none" class="form-row">
+      <label class="form-label">Numero de jornada</label>
+      <input class="form-input" type="number" name="gameweek" min="1" max="38">
+    </div>
+    <div id="subNotice" style="display:none" class="info-box">Se enviara correo a <%= subCount %> suscriptores activos.</div>
+    <button class="btn btn-primary" type="submit">Guardar</button>
+  </form>
+</main>
+<script>
+document.getElementById("modeSelect").addEventListener("change", function() {
+  const isClose = this.value === "close";
+  document.getElementById("gwRow").style.display = isClose ? "block" : "none";
+  document.getElementById("subNotice").style.display = isClose ? "block" : "none";
+});
+function copyPrompt() {
+  navigator.clipboard.writeText(document.getElementById("llmPrompt").textContent);
+  alert("Prompt copiado!");
+}
+</script>
+<%- include('footer') %>

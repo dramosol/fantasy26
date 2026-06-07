@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/main.css"></head><body>
+<div class="gate-page">
+  <div class="gate-card">
+    <h1 class="gate-title">&#128274; Admin</h1>
+    <% if (error) { %><p class="error-msg"><%= error %></p><% } %>
+    <form method="POST" action="/admin/login" class="gate-form">
+      <input class="gate-input" type="text" name="username" placeholder="Usuario" required autofocus>
+      <input class="gate-input" type="password" name="password" placeholder="Contrasena" required>
+      <button class="btn btn-primary" type="submit">Ingresar</button>
+    </form>
+  </div>
+</div>
+</body></html>

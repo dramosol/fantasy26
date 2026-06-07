@@ -1,0 +1,26 @@
+﻿<%- include('partials/header') %>
+<main class="container">
+  <%- include('partials/reminders', { reminders }) %>
+  <h1 class="section-title">&#127942; Tabla General</h1>
+  <% if (updatedAt) { %>
+  <p class="updated-at">Actualizado: <%= updatedAt %></p>
+  <% } %>
+  <%- include('partials/podium', { payload }) %>
+  <%- include('partials/standings_table', { payload }) %>
+
+  <% if (news && news.length) { %>
+  <section class="news-section">
+    <h2 class="section-title">&#128240; Ultimas Noticias</h2>
+    <div class="news-grid">
+    <% news.forEach(function(item) { %>
+    <a class="news-card" href="<%= item.link %>" target="_blank" rel="noopener noreferrer">
+      <div class="news-source"><%= item.source_name %></div>
+      <div class="news-title"><%= item.title %></div>
+      <div class="news-date"><%= item.published_at ? new Date(item.published_at).toLocaleDateString('es') : '' %></div>
+    </a>
+    <% }); %>
+    </div>
+  </section>
+  <% } %>
+</main>
+<%- include('partials/footer') %>

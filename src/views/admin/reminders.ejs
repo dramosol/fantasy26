@@ -1,0 +1,33 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Recordatorios</h1>
+  <% if (saved) { %><div class="success-box">Guardado.</div><% } %>
+  <% reminders.forEach(function(r) { %>
+  <details class="reminder-item">
+    <summary><span class="badge badge--<%= r.kind %>"><%= r.kind %></span> <%= r.text.substring(0, 60) %><%= r.active ? "" : " (inactivo)" %></summary>
+    <form method="POST" action="/admin/reminders/save">
+      <input type="hidden" name="id" value="<%= r.id %>">
+      <input class="form-input" type="text" name="text" value="<%= r.text %>" required>
+      <select class="form-select" name="kind"><option value="info"<%= r.kind==="info"?" selected":"" %>>Info</option><option value="warning"<%= r.kind==="warning"?" selected":"" %>>Warning</option><option value="deadline"<%= r.kind==="deadline"?" selected":"" %>>Deadline</option></select>
+      <label><input type="checkbox" name="active" value="1"<%= r.active?" checked":"" %>> Activo</label>
+      <label><input type="checkbox" name="include_in_email" value="1"<%= r.include_in_email?" checked":"" %>> Incluir en correo</label>
+      <input class="form-input" type="number" name="sort_order" value="<%= r.sort_order %>">
+      <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+    <form method="POST" action="/admin/reminders/delete" style="margin-top:8px">
+      <input type="hidden" name="id" value="<%= r.id %>">
+      <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+    </form>
+  </details>
+  <% }); %>
+  <h3>Nuevo recordatorio</h3>
+  <form method="POST" action="/admin/reminders/save" class="new-section-form">
+    <input class="form-input" type="text" name="text" placeholder="Texto del recordatorio" required>
+    <select class="form-select" name="kind"><option value="info">Info</option><option value="warning">Warning</option><option value="deadline">Deadline</option></select>
+    <label><input type="checkbox" name="active" value="1" checked> Activo</label>
+    <label><input type="checkbox" name="include_in_email" value="1"> Incluir en correo</label>
+    <input class="form-input" type="number" name="sort_order" value="<%= reminders.length + 1 %>">
+    <button class="btn btn-primary" type="submit">Crear</button>
+  </form>
+</main>
+<%- include('footer') %>

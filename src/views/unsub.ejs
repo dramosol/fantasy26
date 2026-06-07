@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/main.css"></head><body>
+<div class="gate-page">
+  <div class="gate-card">
+    <% if (done) { %>
+    <h1>&#10003; Baja confirmada</h1>
+    <p>Has sido removido de la lista. Ya no recibiras actualizaciones.</p>
+    <a class="btn btn-primary" href="/">Volver al inicio</a>
+    <% } else { %>
+    <h1>&#10007; Error</h1>
+    <p><%= error || "Enlace invalido" %></p>
+    <% } %>
+  </div>
+</div>
+</body></html>

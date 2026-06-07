@@ -1,0 +1,9 @@
+﻿<%- include('partials/header') %>
+<main class="container">
+  <a class="back-link" href="/historia">&larr; Historico</a>
+  <h1 class="section-title">&#127942; Jornada <%= gw %></h1>
+  <p class="updated-at">Guardado: <%= savedAt %></p>
+  <%- include('partials/podium', { payload }) %>
+  <%- include('partials/standings_table', { payload }) %>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,20 @@
+﻿<%- include('partials/header') %>
+<main class="container">
+  <h1 class="section-title">&#128214; Reglas FIFA Fantasy 2026</h1>
+  <%- include('partials/reminders', { reminders }) %>
+  <% if (sections && sections.length) { %>
+  <nav class="rules-toc">
+  <% sections.forEach(function(s) { %>
+    <a href="#sec-<%= s.id %>"><%= s.title %></a>
+  <% }); %>
+  </nav>
+  <% sections.forEach(function(s) { %>
+  <section class="rules-section" id="sec-<%= s.id %>">
+    <%- s.html %>
+  </section>
+  <% }); %>
+  <% } else { %>
+  <p class="no-data">No hay reglas configuradas aun.</p>
+  <% } %>
+</main>
+<%- include('partials/footer') %>

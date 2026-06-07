@@ -1,0 +1,25 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Fuentes de Noticias</h1>
+  <% if (saved) { %><div class="success-box">Guardado correctamente.</div><% } %>
+  <table class="admin-table"><thead><tr><th>Nombre</th><th>URL</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>
+  <% sources.forEach(function(s) { %>
+  <tr>
+    <td><%= s.name %></td>
+    <td><a href="<%= s.url %>" target="_blank"><%= s.url %></a></td>
+    <td><%= s.enabled ? "Activa" : "Inactiva" %></td>
+    <td>
+      <form method="POST" action="/admin/news/toggle" style="display:inline"><input type="hidden" name="id" value="<%= s.id %>"><button class="btn btn-sm" type="submit"><%= s.enabled ? "Desactivar" : "Activar" %></button></form>
+      <form method="POST" action="/admin/news/refresh" style="display:inline"><input type="hidden" name="id" value="<%= s.id %>"><button class="btn btn-sm" type="submit">Refrescar</button></form>
+    </td>
+  </tr>
+  <% }); %>
+  </tbody></table>
+  <h3>Agregar fuente</h3>
+  <form method="POST" action="/admin/news/add" class="inline-form">
+    <input class="form-input" type="text" name="name" placeholder="Nombre" required>
+    <input class="form-input" type="url" name="url" placeholder="URL del feed RSS" required>
+    <button class="btn btn-primary" type="submit">Agregar</button>
+  </form>
+</main>
+<%- include('footer') %>

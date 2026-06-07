@@ -1,0 +1,23 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Snapshots de Jornadas</h1>
+  <% if (snaps && snaps.length) { %>
+  <table class="admin-table"><thead><tr><th>Jornada</th><th>Capturado</th><th>Guardado</th><th>Acciones</th></tr></thead><tbody>
+  <% snaps.forEach(function(s) { %>
+  <tr>
+    <td>Jornada <%= s.gameweek %></td>
+    <td><%= s.captured_at || "-" %></td>
+    <td><%= s.saved_at %></td>
+    <td>
+      <a class="btn btn-sm" href="/historia/<%= s.gameweek %>">Ver</a>
+      <form method="POST" action="/admin/snapshots/delete" style="display:inline">
+        <input type="hidden" name="gameweek" value="<%= s.gameweek %>">
+        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Eliminar jornada ' + <%= s.gameweek %> + '?')">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }); %>
+  </tbody></table>
+  <% } else { %><p class="no-data">No hay snapshots.</p><% } %>
+</main>
+<%- include('footer') %>

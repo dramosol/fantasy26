@@ -1,0 +1,14 @@
+﻿<%- include('partials/header') %>
+<main class="container">
+  <h1 class="section-title">&#128196; Historico de Jornadas</h1>
+  <% if (snaps && snaps.length) { %>
+  <ul class="history-list">
+  <% snaps.forEach(function(s) { %>
+  <li><a class="history-link" href="/historia/<%= s.gameweek %>">Jornada <%= s.gameweek %> &mdash; <%= s.captured_at || s.saved_at %></a></li>
+  <% }); %>
+  </ul>
+  <% } else { %>
+  <p class="no-data">Aun no hay jornadas cerradas.</p>
+  <% } %>
+</main>
+<%- include('partials/footer') %>

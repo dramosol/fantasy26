@@ -1,0 +1,25 @@
+﻿<% if (payload && payload.rows && payload.rows.length) { %>
+<div class="table-controls">
+  <input class="search-input" id="tableSearch" type="text" placeholder="Buscar manager o equipo...">
+</div>
+<div class="table-wrap">
+<table class="standings-table" id="standingsTable">
+  <thead><tr>
+  <% payload.columns.forEach(function(col) { %>
+  <th data-key="<%= col.key %>" class="sortable"><%= col.label %> <span class="sort-icon">&#8597;</span></th>
+  <% }); %>
+  </tr></thead>
+  <tbody>
+  <% payload.rows.forEach(function(row) { %>
+  <tr<% if (row.rank <= 3) { %> class="top-<%= row.rank %>"<% } %>>
+    <% payload.columns.forEach(function(col) { %>
+    <td><%= row[col.key] %></td>
+    <% }); %>
+  </tr>
+  <% }); %>
+  </tbody>
+</table>
+</div>
+<% } else { %>
+<p class="no-data">Aun no hay tabla disponible.</p>
+<% } %>

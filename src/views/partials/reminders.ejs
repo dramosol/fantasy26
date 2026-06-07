@@ -1,0 +1,10 @@
+﻿<% if (reminders && reminders.length) { %>
+<div class="reminders-bar">
+  <% reminders.forEach(function(r) { %>
+  <div class="reminder reminder--<%= r.kind %>">
+    <% if (r.kind === "deadline") { %>&#9200;<% } else if (r.kind === "warning") { %>&#9888;<% } else { %>&#8505;<% } %>
+    <%= r.text %>
+  </div>
+  <% }); %>
+</div>
+<% } %>

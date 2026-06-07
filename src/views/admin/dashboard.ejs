@@ -1,0 +1,14 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Dashboard</h1>
+  <div class="admin-stats">
+    <div class="stat-card"><div class="stat-n"><%= subCount %></div><div class="stat-label">Suscriptores activos</div></div>
+    <div class="stat-card"><div class="stat-n"><%= snaps.length %></div><div class="stat-label">Jornadas cerradas</div></div>
+    <div class="stat-card"><div class="stat-n"><%= hasStandings ? "Si" : "No" %></div><div class="stat-label">Tabla actual</div></div>
+  </div>
+  <div class="admin-actions">
+    <a class="btn btn-primary" href="/admin/paste">+ Cargar tabla</a>
+    <a class="btn" href="/">Ver sitio publico</a>
+  </div>
+</main>
+<%- include('footer') %>

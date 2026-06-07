@@ -1,0 +1,20 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Suscriptores (<%= subs.length %>)</h1>
+  <table class="admin-table"><thead><tr><th>Email</th><th>Suscrito</th><th>Estado</th><th></th></tr></thead><tbody>
+  <% subs.forEach(function(s) { %>
+  <tr class="<%= s.unsubscribed_at ? "row-inactive" : "" %>">
+    <td><%= s.email %></td>
+    <td><%= s.created_at %></td>
+    <td><%= s.unsubscribed_at ? "Baja" : "Activo" %></td>
+    <td>
+      <form method="POST" action="/admin/subscribers/delete" style="display:inline">
+        <input type="hidden" name="id" value="<%= s.id %>">
+        <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }); %>
+  </tbody></table>
+</main>
+<%- include('footer') %>

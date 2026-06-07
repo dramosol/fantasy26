@@ -1,0 +1,11 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">&#10003; Jornada <%= gw %> cerrada</h1>
+  <div class="success-box">
+    <p>Snapshot guardado y tabla actualizada.</p>
+    <p>Correos enviados: <strong><%= result.sent %></strong> de <strong><%= result.total %></strong> suscriptores.</p>
+    <% if (result.error) { %><p class="error-msg">Algunos envios fallaron: <%= result.error %></p><% } %>
+  </div>
+  <a class="btn btn-primary" href="/admin">Volver al panel</a>
+</main>
+<%- include('footer') %>

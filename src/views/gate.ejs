@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/main.css"></head>
+<body>
+<div class="gate-page">
+  <div class="gate-card">
+    <div class="gate-icon">&#9917;</div>
+    <h1 class="gate-title">Fantasy FIFA 2026</h1>
+    <p class="gate-subtitle">Ingresa tu email para ver la tabla y recibir actualizaciones del torneo.</p>
+    <% if (error) { %><p class="error-msg"><%= error %></p><% } %>
+    <form method="POST" action="/suscribir" class="gate-form">
+      <input class="gate-input" type="email" name="email" placeholder="tu@email.com" required autofocus>
+      <button class="btn btn-primary" type="submit">Entrar &#8594;</button>
+    </form>
+    <p class="gate-notice">Solo usaremos tu email para actualizaciones del torneo. Puedes cancelar en cualquier momento.</p>
+  </div>
+</div>
+<script src="/js/main.js"></script>
+</body></html>

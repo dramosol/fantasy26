@@ -1,0 +1,16 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Historial de Envios</h1>
+  <table class="admin-table"><thead><tr><th>Jornada</th><th>Enviado</th><th>Enviados</th><th>Estado</th><th>Error</th></tr></thead><tbody>
+  <% logs.forEach(function(l) { %>
+  <tr>
+    <td>Jornada <%= l.gameweek %></td>
+    <td><%= l.sent_at %></td>
+    <td><%= l.recipients_count %></td>
+    <td class="status-<%= l.status %>"><%= l.status %></td>
+    <td><%= l.error || "-" %></td>
+  </tr>
+  <% }); %>
+  </tbody></table>
+</main>
+<%- include('footer') %>

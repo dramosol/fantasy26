@@ -1,0 +1,29 @@
+﻿<%- include('header') %>
+<main class="container">
+  <h1 class="section-title">Reglas</h1>
+  <% if (saved) { %><div class="success-box">Guardado.</div><% } %>
+  <% sections.forEach(function(s) { %>
+  <details class="rule-item">
+    <summary><%= s.sort_order %>. <%= s.title %></summary>
+    <form method="POST" action="/admin/rules/save">
+      <input type="hidden" name="id" value="<%= s.id %>">
+      <input class="form-input" type="text" name="title" value="<%= s.title %>" required>
+      <input class="form-input" type="number" name="sort_order" value="<%= s.sort_order %>">
+      <textarea class="form-textarea" name="body_md" rows="8"><%= s.body_md %></textarea>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+    <form method="POST" action="/admin/rules/delete" style="margin-top:8px">
+      <input type="hidden" name="id" value="<%= s.id %>">
+      <button class="btn btn-danger btn-sm" type="submit">Eliminar seccion</button>
+    </form>
+  </details>
+  <% }); %>
+  <h3>Nueva seccion</h3>
+  <form method="POST" action="/admin/rules/save" class="new-section-form">
+    <input class="form-input" type="text" name="title" placeholder="Titulo" required>
+    <input class="form-input" type="number" name="sort_order" placeholder="Orden" value="<%= sections.length + 1 %>">
+    <textarea class="form-textarea" name="body_md" rows="6" placeholder="Contenido en markdown"></textarea>
+    <button class="btn btn-primary" type="submit">Crear seccion</button>
+  </form>
+</main>
+<%- include('footer') %>
