@@ -1,5 +1,5 @@
-﻿app = "fantasy2026"
-primary_region = "mia"
+app = "fantasy2026"
+primary_region = "dfw"
 
 [build]
   dockerfile = "Dockerfile"
